@@ -60,7 +60,7 @@ public class StaffDoctorService {
     public StaffDoctor updateStaffDoctor(Long id, StaffDoctor staffDoctor) {
         Optional<StaffDoctor> staffDoctorOptional = staffRepository.findById(id);
         if (staffDoctorOptional.isEmpty()) {
-            return null;
+            throw new IllegalArgumentException("Doctor not found");
         }
         if (staffDoctorOptional.get().getRole() == EStaffRole.DOCTOR) {
             StaffDoctor staffDoctorUpdate = staffDoctorOptional.get();

@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  service-doctor:
+    ports:
+      - 6060:6060
+    image: service-doctor-image
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - "TZ=Europe/Rome"
+    container_name: service-doctor
+    networks:
+      - net_storage
+    depends_on:
+      - hospital-database
+
+networks:
+  net_storage:
+    name: database_net_storage
+    external: true

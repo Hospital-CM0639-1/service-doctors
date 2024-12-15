@@ -1,10 +1,14 @@
 package hospital.servicedoctor.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -12,7 +16,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "patient")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Table(name = "patients")
 public class Patient {
 
     @Id
@@ -26,14 +31,14 @@ public class Patient {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "data_of_birth", nullable = false)
+    @Column(name = "date_of_birth", nullable = false)
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dateOfBirth;
 
     @Column(name = "gender")
     private String gender;
 
-    @Column(name = "contanct_number")
+    @Column(name = "contact_number")
     private String contactNumber;
 
     @Column(name = "emergency_contact_name")
@@ -58,7 +63,10 @@ public class Patient {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    @Column(name = "last_updated")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime updatedAt;
+    private LocalDateTime lastUpdated;
+
+    @OneToMany(mappedBy="patient")
+    private List<EmergencyVisit> emergencyVisits;
 }

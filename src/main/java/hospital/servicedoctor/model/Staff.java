@@ -1,6 +1,9 @@
 package hospital.servicedoctor.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import hospital.servicedoctor.model.enums.EStaffRole;
 import jakarta.persistence.*;
 import lombok.*;
@@ -8,12 +11,15 @@ import org.hibernate.annotations.JdbcType;
 import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
 @Builder
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "staff")
-public class StaffDoctor {
+public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "staff_id", nullable = false)
@@ -48,5 +54,9 @@ public class StaffDoctor {
 
     @Column(name = "is_active", nullable = false, columnDefinition = "boolean default true")
     private boolean isActive;
+
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<MedicalProcedure> medicalProcedures = new ArrayList<>();
 
 }

@@ -1,6 +1,6 @@
 package hospital.servicedoctor.service;
 
-import hospital.servicedoctor.model.StaffDoctor;
+import hospital.servicedoctor.model.Staff;
 import hospital.servicedoctor.model.enums.EStaffRole;
 import hospital.servicedoctor.repository.IStaffDoctorRepository;
 import org.slf4j.Logger;
@@ -13,21 +13,25 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StaffDoctorService {
+public class StaffService {
 
-    private static final Logger logger = LoggerFactory.getLogger(StaffDoctorService.class);
+    private static final Logger logger = LoggerFactory.getLogger(StaffService.class);
 
     private final IStaffDoctorRepository staffRepository;
 
-    public StaffDoctorService(IStaffDoctorRepository staffRepository) {
+    public StaffService(IStaffDoctorRepository staffRepository) {
         this.staffRepository = staffRepository;
     }
 
+
+
+
+    /*********************** UTILITIES HIDDEN METHODS ***********************/
     /**
      * Page staff doctors
      * @return Page of staff doctors
      */
-    public Page<StaffDoctor> getAllStaffDoctor(Pageable pageable) {
+    public Page<Staff> getAllStaffDoctor(Pageable pageable) {
         return staffRepository.findAllByRole(EStaffRole.DOCTOR, pageable);
     }
 
@@ -35,45 +39,45 @@ public class StaffDoctorService {
      * Get all staff doctors
      * @return List of staff doctors
      */
-    public List<StaffDoctor> getAllStaffDoctorList() {
+    public List<Staff> getAllStaffDoctorList() {
         return staffRepository.findAllByRole(EStaffRole.DOCTOR);
     }
 
     /**
      * Create a new staff doctor
      */
-    public StaffDoctor createStaffDoctor(StaffDoctor staffDoctor) {
-        staffDoctor.setRole(EStaffRole.DOCTOR);
-        return staffRepository.save(staffDoctor);
+    public Staff createStaffDoctor(Staff staff) {
+        staff.setRole(EStaffRole.DOCTOR);
+        return staffRepository.save(staff);
     }
 
     /**
      * Get staff doctor by id
      */
-    public StaffDoctor getStaffDoctorById(Long id) {
+    public Staff getStaffDoctorById(Long id) {
         return staffRepository.findById(id).orElse(null);
     }
 
     /**
      * Update staff doctor
      */
-    public StaffDoctor updateStaffDoctor(Long id, StaffDoctor staffDoctor) {
-        Optional<StaffDoctor> staffDoctorOptional = staffRepository.findById(id);
+    public Staff updateStaffDoctor(Long id, Staff staff) {
+        Optional<Staff> staffDoctorOptional = staffRepository.findById(id);
         if (staffDoctorOptional.isEmpty()) {
             throw new IllegalArgumentException("Doctor not found");
         }
         if (staffDoctorOptional.get().getRole() == EStaffRole.DOCTOR) {
-            StaffDoctor staffDoctorUpdate = staffDoctorOptional.get();
-            staffDoctorUpdate.setFirstName(staffDoctor.getFirstName());
-            staffDoctorUpdate.setLastName(staffDoctor.getLastName());
-            staffDoctorUpdate.setEmail(staffDoctor.getEmail());
-            staffDoctorUpdate.setPhoneNumber(staffDoctor.getPhoneNumber());
-            staffDoctorUpdate.setRole(EStaffRole.DOCTOR);
-            staffDoctorUpdate.setDepartment(staffDoctor.getDepartment());
-            staffDoctorUpdate.setSpecialization(staffDoctor.getSpecialization());
-            staffDoctorUpdate.setHireDate(staffDoctor.getHireDate());
-            staffDoctorUpdate.setActive(staffDoctor.isActive());
-            return staffRepository.save(staffDoctorUpdate);
+            Staff staffUpdate = staffDoctorOptional.get();
+            staffUpdate.setFirstName(staff.getFirstName());
+            staffUpdate.setLastName(staff.getLastName());
+            staffUpdate.setEmail(staff.getEmail());
+            staffUpdate.setPhoneNumber(staff.getPhoneNumber());
+            staffUpdate.setRole(EStaffRole.DOCTOR);
+            staffUpdate.setDepartment(staff.getDepartment());
+            staffUpdate.setSpecialization(staff.getSpecialization());
+            staffUpdate.setHireDate(staff.getHireDate());
+            staffUpdate.setActive(staff.isActive());
+            return staffRepository.save(staffUpdate);
         } else {
             throw new IllegalArgumentException("Staff is not a doctor");
         }
@@ -83,7 +87,7 @@ public class StaffDoctorService {
      * Delete staff doctor
      */
     public void deleteStaffDoctor(Long id) {
-        Optional<StaffDoctor> staffDoctor = staffRepository.findByIdAndRole(id, EStaffRole.DOCTOR);
+        Optional<Staff> staffDoctor = staffRepository.findByIdAndRole(id, EStaffRole.DOCTOR);
         if (staffDoctor.isEmpty()) {
             throw new IllegalArgumentException("Doctor not found");
         }

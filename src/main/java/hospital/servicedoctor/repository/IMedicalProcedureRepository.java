@@ -1,6 +1,6 @@
 package hospital.servicedoctor.repository;
 
-import hospital.servicedoctor.model.Staff;
+import hospital.servicedoctor.model.MedicalProcedure;
 import hospital.servicedoctor.model.enums.EStaffRole;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,14 +8,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
-public interface IStaffDoctorRepository extends JpaRepository<Staff, Long> {
+public interface IMedicalProcedureRepository extends JpaRepository<MedicalProcedure, Long>  {
 
-    Page<Staff> findAllByRole(EStaffRole role, Pageable pageable);
-    List<Staff> findAllByRole(EStaffRole role);
+    List<MedicalProcedure> findAllByStaff_RoleAndId(EStaffRole role, Long id);
 
-    Optional<Staff> findByIdAndRole(Long id, EStaffRole role);
 
 }

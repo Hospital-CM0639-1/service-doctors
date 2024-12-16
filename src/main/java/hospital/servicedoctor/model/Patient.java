@@ -1,9 +1,6 @@
 package hospital.servicedoctor.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "patients")
 public class Patient {
 
@@ -68,5 +64,6 @@ public class Patient {
     private LocalDateTime lastUpdated;
 
     @OneToMany(mappedBy="patient")
+    @JsonIgnoreProperties("emergencyVisits")
     private List<EmergencyVisit> emergencyVisits;
 }

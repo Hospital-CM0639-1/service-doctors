@@ -1,8 +1,6 @@
 package hospital.servicedoctor.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import hospital.servicedoctor.model.enums.EPatientStatus;
 import hospital.servicedoctor.model.enums.EStaffRole;
 import jakarta.persistence.*;
@@ -19,7 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "emergency_visits")
 public class EmergencyVisit {
     @Id
@@ -48,9 +45,11 @@ public class EmergencyVisit {
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
+    @JsonIgnoreProperties("emergencyVisits")
     private Patient patient;
 
     @OneToMany(mappedBy = "emergencyVisit")
+    @JsonIgnore
     private List<MedicalProcedure> medicalProcedures;
 
 }

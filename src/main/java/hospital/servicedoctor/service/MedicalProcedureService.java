@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -29,8 +30,8 @@ public class MedicalProcedureService {
         return medicalProcedureRepository.findAll(pageable);
     }
 
-    public List<MedicalProcedure> getAllMedicalDoctorProcedures(Long doctorId) {
-        return medicalProcedureRepository.findAllByStaff_RoleAndId(EStaffRole.DOCTOR, doctorId);
+    public List<MedicalProcedure> getAllMedicalDoctorProcedures(Long doctorId, LocalDateTime startDate, LocalDateTime finishDate) {
+        return medicalProcedureRepository.findAllByStaff_IdAndStaff_RoleAndProcedureTimestampBetween(doctorId, EStaffRole.DOCTOR,  startDate, finishDate);
     }
 
 

@@ -1,7 +1,9 @@
-package hospital.servicedoctor.model.dto;
+package hospital.servicedoctor.model.dto.medicalprocedure;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import hospital.servicedoctor.model.EmergencyVisit;
-import hospital.servicedoctor.model.Staff;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,13 +11,11 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class AddMedicalProcedureDto {
+public class MedicalProcedureDto {
     private Long id;
     private String procedureName;
     private LocalDateTime procedureTimestamp;
     private String description;
     private Float procedureCost;
-    private EmergencyVisit emergencyVisit;
-    private Staff staff;
 
 }

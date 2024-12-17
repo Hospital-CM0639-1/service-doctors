@@ -1,8 +1,7 @@
 package hospital.servicedoctor.controller;
 
-import hospital.servicedoctor.model.MedicalProcedure;
-import hospital.servicedoctor.model.dto.AddMedicalProcedureDto;
-import hospital.servicedoctor.model.dto.MedicalProcedureDto;
+import hospital.servicedoctor.model.dto.medicalprocedure.DetailMedicalProcedureDto;
+import hospital.servicedoctor.model.dto.medicalprocedure.MedicalProcedureDto;
 import hospital.servicedoctor.service.MedicalProcedureService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,7 +40,7 @@ public class MedicalProcedureController {
      * @return List<MedicalProcedureDto>
      */
     @GetMapping(produces = "application/json", value = "doctor/{doctorId}")
-    public ResponseEntity<List<MedicalProcedureDto>> getAllMedicalDoctorProcedures(
+    public ResponseEntity<List<DetailMedicalProcedureDto>> getAllMedicalDoctorProcedures(
             @PathVariable Long doctorId,
             @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm") LocalDateTime startDate,
             @RequestParam(value = "finishDate", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")  LocalDateTime finishDate) {
@@ -56,7 +55,7 @@ public class MedicalProcedureController {
      *  @return List<MedicalProcedureDto>
      */
     @GetMapping(produces = "application/json", value = "patient/{patientId}")
-    public ResponseEntity<List<MedicalProcedureDto>> getPatientMedicalProcedures(
+    public ResponseEntity<List<DetailMedicalProcedureDto>> getPatientMedicalProcedures(
             @PathVariable Long patientId,
             @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm") LocalDateTime startDate,
             @RequestParam(value = "finishDate", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm") LocalDateTime finishDate) {
@@ -69,7 +68,7 @@ public class MedicalProcedureController {
      * @return MedicalProcedureDto
      */
     @PostMapping(produces = "application/json")
-    public ResponseEntity<MedicalProcedureDto> saveMedicalProcedure(@RequestBody AddMedicalProcedureDto medicalProcedureDto) {
+    public ResponseEntity<DetailMedicalProcedureDto> saveMedicalProcedure(@RequestBody DetailMedicalProcedureDto medicalProcedureDto) {
         return ResponseEntity.ok(this.medicalProcedureService.saveMedicalProcedure(medicalProcedureDto));
     }
 
@@ -80,8 +79,8 @@ public class MedicalProcedureController {
      * @return MedicalProcedureDto
      */
     @PutMapping(produces = "application/json", value = "{id}")
-    public ResponseEntity<MedicalProcedureDto> updateMedicalProcedure(@RequestBody AddMedicalProcedureDto medicalProcedureDto,
-                                                                      @PathVariable Long id) {
+    public ResponseEntity<DetailMedicalProcedureDto> updateMedicalProcedure(@RequestBody DetailMedicalProcedureDto medicalProcedureDto,
+                                                                            @PathVariable Long id) {
         return ResponseEntity.ok(this.medicalProcedureService.updateMedicalProcedure(medicalProcedureDto, id));
     }
 

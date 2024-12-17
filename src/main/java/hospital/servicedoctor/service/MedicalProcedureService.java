@@ -1,8 +1,8 @@
 package hospital.servicedoctor.service;
 
 import hospital.servicedoctor.model.MedicalProcedure;
-import hospital.servicedoctor.model.dto.AddMedicalProcedureDto;
-import hospital.servicedoctor.model.dto.MedicalProcedureDto;
+import hospital.servicedoctor.model.dto.medicalprocedure.DetailMedicalProcedureDto;
+import hospital.servicedoctor.model.dto.medicalprocedure.MedicalProcedureDto;
 import hospital.servicedoctor.model.enums.EStaffRole;
 import hospital.servicedoctor.repository.IMedicalProcedureRepository;
 import org.modelmapper.ModelMapper;
@@ -40,38 +40,38 @@ public class MedicalProcedureService {
     /**
      * Get all medical procedures for a doctor with a given id (WHAT HAS DONE A DOCTOR)
      */
-    public List<MedicalProcedureDto> getAllMedicalDoctorProcedures(Long doctorId, LocalDateTime startDate, LocalDateTime finishDate) {
+    public List<DetailMedicalProcedureDto> getAllMedicalDoctorProcedures(Long doctorId, LocalDateTime startDate, LocalDateTime finishDate) {
         List<MedicalProcedure> medicalProcedureList = medicalProcedureRepository.findAllByStaff_IdAndStaff_RoleAndProcedureTimestampBetween(
                 doctorId, EStaffRole.DOCTOR,  startDate, finishDate);
         return medicalProcedureList.stream()
-                .map(this::convertToDto)
+                .map(this::convertToDetailedDto)
                 .collect(Collectors.toList());
     }
 
     /**
      * Get patient's medical procedures
      */
-    public List<MedicalProcedureDto> getPatientMedicalProcedures(Long patientId, LocalDateTime startDate, LocalDateTime finishDate) {
+    public List<DetailMedicalProcedureDto> getPatientMedicalProcedures(Long patientId, LocalDateTime startDate, LocalDateTime finishDate) {
         List<MedicalProcedure> medicalProcedureList = medicalProcedureRepository.findAllByEmergencyVisit_Patient_IdAndProcedureTimestampBetween(
                 patientId, startDate, finishDate);
         return medicalProcedureList.stream()
-                .map(this::convertToDto)
+                .map(this::convertToDetailedDto)
                 .collect(Collectors.toList());
     }
 
     /**
      * Save medical procedure
      */
-    public MedicalProcedureDto saveMedicalProcedure(AddMedicalProcedureDto medicalProcedureDto) {
+    public DetailMedicalProcedureDto saveMedicalProcedure(DetailMedicalProcedureDto medicalProcedureDto) {
         MedicalProcedure medicalProcedure = convertToDao(medicalProcedureDto);
         MedicalProcedure saveMedicalProcedure = medicalProcedureRepository.save(medicalProcedure);
-        return convertToDto(saveMedicalProcedure);
+        return convertToDetailedDto(saveMedicalProcedure);
     }
 
     /**
      * Update medical procedure
      */
-    public MedicalProcedureDto updateMedicalProcedure(AddMedicalProcedureDto medicalProcedureDto, Long id) {
+    public DetailMedicalProcedureDto updateMedicalProcedure(DetailMedicalProcedureDto medicalProcedureDto, Long id) {
         boolean existsById = medicalProcedureRepository.existsById(id);
         if (!existsById) {
             logger.error("Medical procedure with id {} not found", id);
@@ -80,7 +80,7 @@ public class MedicalProcedureService {
         MedicalProcedure medicalProcedure = convertToDao(medicalProcedureDto);
         medicalProcedure.setId(id);
         MedicalProcedure saveMedicalProcedure = medicalProcedureRepository.save(medicalProcedure);
-        return convertToDto(saveMedicalProcedure);
+        return convertToDetailedDto(saveMedicalProcedure);
     }
 
     /**
@@ -99,7 +99,10 @@ public class MedicalProcedureService {
     private MedicalProcedureDto convertToDto(MedicalProcedure medicalProcedure) {
         return modelMapper.map(medicalProcedure, MedicalProcedureDto.class);
     }
-    private MedicalProcedure convertToDao(AddMedicalProcedureDto medicalProcedureDto) {
+    private DetailMedicalProcedureDto convertToDetailedDto(MedicalProcedure medicalProcedure) {
+        return modelMapper.map(medicalProcedure, DetailMedicalProcedureDto.class);
+    }
+    private MedicalProcedure convertToDao(DetailMedicalProcedureDto medicalProcedureDto) {
         return modelMapper.map(medicalProcedureDto, MedicalProcedure.class);
     }
 

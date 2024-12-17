@@ -2,7 +2,6 @@ package hospital.servicedoctor.model;
 
 import com.fasterxml.jackson.annotation.*;
 import hospital.servicedoctor.model.enums.EPatientStatus;
-import hospital.servicedoctor.model.enums.EStaffRole;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcType;
@@ -45,11 +44,12 @@ public class EmergencyVisit {
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
-    @JsonIgnoreProperties("emergencyVisits")
     private Patient patient;
 
     @OneToMany(mappedBy = "emergencyVisit")
-    @JsonIgnore
     private List<MedicalProcedure> medicalProcedures;
+
+    @OneToMany(mappedBy = "emergencyVisit")
+    private List<PatientVital> patientVitals;
 
 }

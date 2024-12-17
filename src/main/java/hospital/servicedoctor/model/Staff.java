@@ -52,7 +52,9 @@ public class Staff {
     private boolean isActive;
 
     @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
     private List<MedicalProcedure> medicalProcedures = new ArrayList<>();
+
+    @OneToMany(mappedBy = "staff", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PatientVital> patientVitals = new ArrayList<>();
 
 }

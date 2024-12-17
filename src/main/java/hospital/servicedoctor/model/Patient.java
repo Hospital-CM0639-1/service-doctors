@@ -64,6 +64,5 @@ public class Patient {
     private LocalDateTime lastUpdated;
 
     @OneToMany(mappedBy="patient")
-    @JsonIgnoreProperties("emergencyVisits")
     private List<EmergencyVisit> emergencyVisits;
 }

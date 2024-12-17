@@ -1,6 +1,13 @@
 Spring Boot Docker Service Doctor
 ==========================
-This service is a simple Spring Boot application that provides a RESTful API to manage doctors. It uses a postgres database to store the data.
+This service is a simple Spring Boot application that provides a RESTful API to manage doctors.
+It provides the following features:
+- Get all medical procedures made by doctor in a specific period of time
+- Get all patient's medical procedures in a specific period of time
+- Get all medical procedures paged
+- Create a new medical procedure
+- Update a medical procedure
+- Delete a medical procedure
 
 Docker
 ========
@@ -14,7 +21,22 @@ Then run the following command:
 docker compose up --build -t doctor-service -d
 ```
 
-Documentation
+API Documentation
 ========
-- Get all medical procedures of a doctor in a specific period of time.<br/>
-GET medical-procedures/doctor/{doctorId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}
+- Get all medical procedures made by doctor in a specific period of time.<br/>
+`GET /medical-procedures/doctor/{doctorId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}
+`
+- Get all patient's medical procedures in a specific period of time.<br/>
+`GET /medical-procedures/patient/{patientId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}
+`
+- Get all medical procedures paged.<br/>
+`GET /medical-procedures?page={page}&size={size}&sort={sort}
+`
+- Create a new medical procedure.<br/>
+`POST /medical-procedures
+`
+- Update a medical procedure.<br/>
+`PUT /medical-procedures/{id}
+`
+- Delete a medical procedure.<br/>
+```DELETE /medical-procedures/{id}```

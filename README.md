@@ -19,6 +19,9 @@ _Patient vitals_
 - Update a patient vitals
 - Delete a patient vitals
 
+_Patient Assign to Doctor_
+- List assigned patients to a doctor
+
 Docker
 ========
 Before to create the image and run the docker container, change the datasource of _application.properties_:
@@ -35,17 +38,17 @@ API Documentation
 ========
 MEDICAL PROCEDURE
 - Get all medical procedures made by doctor in a specific period of time.<br/>
-`GET /medical-procedures/doctor/{doctorId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}`
+`GET /api/v1/medical-procedures/doctor/{doctorId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}`
 - Get all patient's medical procedures in a specific period of time.<br/>
-`GET /medical-procedures/patient/{patientId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}`
+`GET /api/v1//medical-procedures/patient/{patientId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}`
 - Get all medical procedures paged.<br/>
-`GET /medical-procedures?page={page}&size={size}&sort={sort}`
+`GET /api/v1//medical-procedures?page={page}&size={size}&sort={sort}`
 - Create a new medical procedure.<br/>
-`POST /medical-procedures`
+`POST /api/v1//medical-procedures`
 - Update a medical procedure.<br/>
-`PUT /medical-procedures/{id}`
+`PUT /api/v1//medical-procedures/{id}`
 - Delete a medical procedure.<br/>
-`DELETE /medical-procedures/{id}`
+`DELETE /api/v1//medical-procedures/{id}`
 
   _Example of object:_
     ```json
@@ -66,17 +69,17 @@ MEDICAL PROCEDURE
 
 PATIENT VITALS
 - Get all vitals of patient in a specific period of time.<br/>
-`GET /patient-vitals/patient/{patientId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}`
+`GET /api/v1//patient-vitals/patient/{patientId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}`
 - Get all patient vitals visited from doctor in a specific period of time.<br/>
-`GET /patient-vitals/doctor/{doctorId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}`
+`GET /api/v1//patient-vitals/doctor/{doctorId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}`
 - Get all patient vitals paged.<br/>
-`GET /patient-vitals?page={page}&size={size}&sort={sort}`
+`GET /api/v1//patient-vitals?page={page}&size={size}&sort={sort}`
 - Create a new patient vitals.<br/>
-`POST /patient-vitals`
+`POST /api/v1//patient-vitals`
 - Update a patient vitals.<br/>
-`PUT /patient-vitals/{id}`
+`PUT /api/v1//patient-vitals/{id}`
 - Delete a patient vitals.<br/>
-`DELETE /patient-vitals/{id}`
+`DELETE /api/v1//patient-vitals/{id}`
 
   _Example of object:_
   ```json
@@ -100,7 +103,7 @@ PATIENT VITALS
   ```
 PATIENT ASSIGN TO DOCTOR
 - List assigned patients to a doctor.<br/>
-`GET /emergency-visit-staff/doctor/{doctorId}`
+`GET /api/v1//emergency-visit-staff/doctor/{doctorId}`
   _Example of object:_
   ```json
   [

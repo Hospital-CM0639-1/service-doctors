@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/medical-procedures")
+@RequestMapping("${vAPI}/medical-procedures")
 public class MedicalProcedureController {
 
     private final MedicalProcedureService medicalProcedureService;

@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/emergency-visit-staff")
+@RequestMapping("${vAPI}/emergency-visit-staff")
 public class EmergencyVisitStaffController {
 
     private final IEmergencyVisitStaffRepository emergencyVisitStaffRepository;

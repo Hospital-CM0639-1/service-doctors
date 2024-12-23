@@ -1,4 +1,4 @@
-package hospital.servicedoctor.model.dto;
+package hospital.servicedoctor.model.dto.emergencyvisitstaff;
 
 import hospital.servicedoctor.model.enums.EStaffRole;
 import lombok.Getter;

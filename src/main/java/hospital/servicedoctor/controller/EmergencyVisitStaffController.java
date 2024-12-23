@@ -1,7 +1,7 @@
 package hospital.servicedoctor.controller;
 
 import hospital.servicedoctor.model.EmergencyVisitStaff;
-import hospital.servicedoctor.model.dto.EmergencyVisitStaffDto;
+import hospital.servicedoctor.model.dto.emergencyvisitstaff.EmergencyVisitStaffDto;
 import hospital.servicedoctor.repository.IEmergencyVisitStaffRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

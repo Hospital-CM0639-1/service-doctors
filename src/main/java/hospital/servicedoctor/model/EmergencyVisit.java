@@ -52,4 +52,7 @@ public class EmergencyVisit {
     @OneToMany(mappedBy = "emergencyVisit")
     private List<PatientVital> patientVitals;
 
+    @OneToMany(mappedBy = "emergencyVisit")
+    private List<EmergencyVisitStaff> emergencyVisitStaff;
+
 }

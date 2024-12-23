@@ -98,3 +98,23 @@ PATIENT VITALS
     }
   }
   ```
+PATIENT ASSIGN TO DOCTOR
+- List assigned patients to a doctor.<br/>
+`GET /emergency-visit-staff/doctor/{doctorId}`
+  _Example of object:_
+  ```json
+  [
+    {
+        "staffRole": "DOCTOR",
+        "visitId": 1,
+        "staffId": 1,
+        "assignedAt": "2024-12-21T16:04:11.920876",
+        "emergencyVisit": {
+            "id": 1,
+            "patient": {
+                "id": 1
+            }
+        }
+    }
+  ]
+  ```

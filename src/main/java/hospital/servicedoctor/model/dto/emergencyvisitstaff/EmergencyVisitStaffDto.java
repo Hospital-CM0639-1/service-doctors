@@ -22,6 +22,8 @@ public class EmergencyVisitStaffDto {
 @Setter
 class EmergencyVisitDto {
     private Long id;
+    private String triageNotes;
+    private String priorityLevel;
     private PatientDto patient;
 }
 
@@ -29,4 +31,6 @@ class EmergencyVisitDto {
 @Setter
 class PatientDto {
     private Long id;
+    private String firstName;
+    private String lastName;
 }

@@ -28,12 +28,12 @@ public class EmergencyVisitStaffController {
     }
 
     /**
-     * Get all staff assigned to a doctor
+     * Get all patient assigned to a doctor
      * @param doctorId
-     * @return List of staff assigned to a doctor
+     * @return List of patient assigned to a doctor
      */
     @GetMapping(value = "doctor/{doctorId}", produces = "application/json")
-    public ResponseEntity<List<EmergencyVisitStaffDto>> getStaffDoctorById(@PathVariable Long doctorId) {
+    public ResponseEntity<List<EmergencyVisitStaffDto>> getPatientsAssignedToDoctorById(@PathVariable Long doctorId) {
         return ResponseEntity.ok(this.emergencyVisitStaffRepository.findPatientsAssignedToDoctor(doctorId)
                 .stream().map(this::convertToDto).collect(Collectors.toList()));
     }

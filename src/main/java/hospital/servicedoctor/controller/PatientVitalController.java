@@ -55,11 +55,12 @@ public class PatientVitalController {
      * @return List<PatientVitalDto>
      */
     @GetMapping(produces = "application/json", value = "patient/{patientId}")
-    public ResponseEntity<List<DetailPatientVitalDto>> getPatientVitals(
+    public ResponseEntity<Page<DetailPatientVitalDto>> getPatientVitals(
             @PathVariable Long patientId,
             @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm") LocalDateTime startDate,
-            @RequestParam(value = "finishDate", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")  LocalDateTime finishDate) {
-        return ResponseEntity.ok(this.patientVitalService.getPatientVitalsOfPatient(patientId, startDate, finishDate));
+            @RequestParam(value = "finishDate", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm")  LocalDateTime finishDate,
+            Pageable pageable) {
+        return ResponseEntity.ok(this.patientVitalService.getPatientVitalsOfPatient(patientId, startDate, finishDate, pageable));
     }
 
     /**

@@ -1,21 +1,20 @@
 package hospital.servicedoctor.repository;
 
-import hospital.servicedoctor.model.PatientVital;
-import hospital.servicedoctor.model.enums.EStaffRole;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import hospital.servicedoctor.model.Patient;
+import hospital.servicedoctor.model.dto.patientemergency.PatientEmergencyInfoDto;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-
 @Repository
-public interface IPatientVitalRepository extends JpaRepository<PatientVital, Long>  {
+public interface IPatientRepository extends JpaRepository<Patient, Long>  {
 
-    List<PatientVital> findAllByStaff_IdAndStaff_RoleAndRecordedAtBetween(Long id, EStaffRole role, LocalDateTime startDate, LocalDateTime finishDate);
-
-    Page<PatientVital> findAllByEmergencyVisit_Patient_IdAndRecordedAtBetween(Long patientId, LocalDateTime startDate, LocalDateTime finishDate, Pageable pageable);
-    Page<PatientVital> findAllByEmergencyVisit_Patient_Id(Long patientId, Pageable pageable);
+    @Query("SELECT new hospital.servicedoctor.model.dto.patientemergency.PatientEmergencyInfoDto(" +
+            "p.id, p.firstName, p.lastName, " +
+            "ev.triageNotes, ev.priorityLevel, ev.admissionTimestamp, ev.patientStatus) " +
+            "FROM Patient p " +
+            "LEFT JOIN p.emergencyVisits ev " +
+            "WHERE p.id = :patientId")
+    PatientEmergencyInfoDto findPatientEmergencyInfo(@Param("patientId") Long patientId);
 }

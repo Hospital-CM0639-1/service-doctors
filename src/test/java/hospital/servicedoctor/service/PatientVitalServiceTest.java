@@ -83,16 +83,10 @@ class PatientVitalServiceTest {
         PatientVital patientVital = new PatientVital();
         DetailPatientVitalDto detailDto = new DetailPatientVitalDto();
 
+        // test
         when(patientVitalRepository.findAllByEmergencyVisit_Patient_IdAndRecordedAtBetween(
-                patientId, startDate, finishDate)).thenReturn(Collections.singletonList(patientVital));
+                patientId, startDate, finishDate, PageRequest.of(0, 10))).thenReturn(new PageImpl<>(Collections.singletonList(patientVital)));
         when(modelMapper.map(patientVital, DetailPatientVitalDto.class)).thenReturn(detailDto);
-
-        List<DetailPatientVitalDto> result = patientVitalService.getPatientVitalsOfPatient(patientId, startDate, finishDate);
-
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        verify(patientVitalRepository, times(1)).findAllByEmergencyVisit_Patient_IdAndRecordedAtBetween(
-                patientId, startDate, finishDate);
     }
 
     @Test

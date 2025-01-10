@@ -43,6 +43,10 @@ MEDICAL PROCEDURE
 `GET /api/v1/doctor-service/medical-procedures/doctor/{doctorId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}`
 - Get all patient's medical procedures in a specific period of time.<br/>
 `GET /api/v1/doctor-service/medical-procedures/patient/{patientId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}`
+- Get all patient's medical procedures
+`GET /api/v1/doctor-service/medical-procedures/patient/{patientId}`
+- Get patient by id  and his emergency info
+`GET /api/v1/doctor-service/patients/{patientId}/emergency-info`
 - Get all medical procedures paged.<br/>
 `GET /api/v1/doctor-service/medical-procedures?page={page}&size={size}&sort={sort}`
 - Create a new medical procedure.<br/>

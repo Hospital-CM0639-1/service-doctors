@@ -15,6 +15,8 @@ public class DetailMedicalProcedureDto extends MedicalProcedureDto {
 @Setter
 class StaffDto {
     private Long id;
+    private String firstName;
+    private String lastName;
 }
 
 @Getter

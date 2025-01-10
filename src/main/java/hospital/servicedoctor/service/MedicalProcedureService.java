@@ -51,12 +51,15 @@ public class MedicalProcedureService {
     /**
      * Get patient's medical procedures
      */
-    public List<DetailMedicalProcedureDto> getPatientMedicalProcedures(Long patientId, LocalDateTime startDate, LocalDateTime finishDate) {
-        List<MedicalProcedure> medicalProcedureList = medicalProcedureRepository.findAllByEmergencyVisit_Patient_IdAndProcedureTimestampBetween(
-                patientId, startDate, finishDate);
-        return medicalProcedureList.stream()
-                .map(this::convertToDetailedDto)
-                .collect(Collectors.toList());
+    public Page<DetailMedicalProcedureDto> getPatientMedicalProcedures(Long patientId, LocalDateTime startDate, LocalDateTime finishDate, Pageable pageable) {
+        Page<MedicalProcedure> medicalProcedures = null;
+        if (startDate != null && finishDate != null) {
+            medicalProcedures = medicalProcedureRepository.findAllByEmergencyVisit_Patient_IdAndProcedureTimestampBetween(
+                    patientId, startDate, finishDate, pageable);
+        } else {
+            medicalProcedures = medicalProcedureRepository.findAllByEmergencyVisit_Patient_Id(patientId, pageable);
+        }
+        return medicalProcedures.map(this::convertToDetailedDto);
     }
 
     /**

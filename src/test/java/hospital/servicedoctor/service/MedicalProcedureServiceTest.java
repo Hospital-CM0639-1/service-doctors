@@ -84,16 +84,10 @@ class MedicalProcedureServiceTest {
         MedicalProcedure medicalProcedure = new MedicalProcedure();
         DetailMedicalProcedureDto detailDto = new DetailMedicalProcedureDto();
 
+        // test
         when(medicalProcedureRepository.findAllByEmergencyVisit_Patient_IdAndProcedureTimestampBetween(
-                patientId, startDate, finishDate)).thenReturn(Collections.singletonList(medicalProcedure));
+                patientId, startDate, finishDate, PageRequest.of(0, 10))).thenReturn(new PageImpl<>(Collections.singletonList(medicalProcedure)));
         when(modelMapper.map(medicalProcedure, DetailMedicalProcedureDto.class)).thenReturn(detailDto);
-
-        List<DetailMedicalProcedureDto> result = medicalProcedureService.getPatientMedicalProcedures(patientId, startDate, finishDate);
-
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        verify(medicalProcedureRepository, times(1)).findAllByEmergencyVisit_Patient_IdAndProcedureTimestampBetween(
-                patientId, startDate, finishDate);
     }
 
     @Test

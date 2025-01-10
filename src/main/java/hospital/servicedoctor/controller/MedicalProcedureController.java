@@ -55,11 +55,12 @@ public class MedicalProcedureController {
      *  @return List<MedicalProcedureDto>
      */
     @GetMapping(produces = "application/json", value = "patient/{patientId}")
-    public ResponseEntity<List<DetailMedicalProcedureDto>> getPatientMedicalProcedures(
+    public ResponseEntity<Page<DetailMedicalProcedureDto>> getPatientMedicalProcedures(
             @PathVariable Long patientId,
             @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm") LocalDateTime startDate,
-            @RequestParam(value = "finishDate", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm") LocalDateTime finishDate) {
-        return ResponseEntity.ok(this.medicalProcedureService.getPatientMedicalProcedures(patientId, startDate, finishDate));
+            @RequestParam(value = "finishDate", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm") LocalDateTime finishDate,
+            Pageable pageable) {
+        return ResponseEntity.ok(this.medicalProcedureService.getPatientMedicalProcedures(patientId, startDate, finishDate, pageable));
     }
 
     /**

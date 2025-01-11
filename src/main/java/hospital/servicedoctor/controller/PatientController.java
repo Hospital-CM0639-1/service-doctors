@@ -2,7 +2,6 @@ package hospital.servicedoctor.controller;
 
 import hospital.servicedoctor.model.dto.patientemergency.PatientEmergencyInfoDto;
 import hospital.servicedoctor.repository.IPatientRepository;
-import hospital.servicedoctor.service.PatientVitalService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

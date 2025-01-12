@@ -43,6 +43,8 @@ MEDICAL PROCEDURE
 `GET /api/v1/doctor-service/medical-procedures/doctor/{doctorId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}`
 - Get all patient's medical procedures in a specific period of time.<br/>
 `GET /api/v1/doctor-service/medical-procedures/patient/{patientId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}`
+- Get all patient's medical procedures.<br/>
+`GET /api/v1/doctor-service/medical-procedures/patient/{patientId}`
 - Get all medical procedures paged.<br/>
 `GET /api/v1/doctor-service/medical-procedures?page={page}&size={size}&sort={sort}`
 - Create a new medical procedure.<br/>
@@ -74,6 +76,8 @@ PATIENT VITALS
 `GET /api/v1/doctor-service/patient-vitals/patient/{patientId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}`
 - Get all patient vitals visited from doctor in a specific period of time.<br/>
 `GET /api/v1/doctor-service/patient-vitals/doctor/{doctorId}?startDate={yyyyy-MM-dd HH:mm}&endDate={yyyyy-MM-dd HH:mm}`
+- Get all patient vitals visited from doctor<br/>
+  `GET /api/v1/doctor-service/patient-vitals/doctor/{doctorId}`
 - Get all patient vitals paged.<br/>
 `GET /api/v1/doctor-service/patient-vitals?page={page}&size={size}&sort={sort}`
 - Create a new patient vitals.<br/>
@@ -127,3 +131,7 @@ PATIENT ASSIGN TO DOCTOR
     }
   ]
   ```
+  
+PATIENT AND HIS EMERGENCY INFO
+- Get patient by id  and his emergency info.<br/>
+  `GET /api/v1/doctor-service/patients/{patientId}/emergency-info`

@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -55,11 +56,12 @@ public class MedicalProcedureController {
      *  @return List<MedicalProcedureDto>
      */
     @GetMapping(produces = "application/json", value = "patient/{patientId}")
-    public ResponseEntity<List<DetailMedicalProcedureDto>> getPatientMedicalProcedures(
+    public ResponseEntity<Page<DetailMedicalProcedureDto>> getPatientMedicalProcedures(
             @PathVariable Long patientId,
             @RequestParam(value = "startDate", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm") LocalDateTime startDate,
-            @RequestParam(value = "finishDate", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm") LocalDateTime finishDate) {
-        return ResponseEntity.ok(this.medicalProcedureService.getPatientMedicalProcedures(patientId, startDate, finishDate));
+            @RequestParam(value = "finishDate", required = false) @DateTimeFormat(pattern="yyyy-MM-dd HH:mm") LocalDateTime finishDate,
+            Pageable pageable) {
+        return ResponseEntity.ok(this.medicalProcedureService.getPatientMedicalProcedures(patientId, startDate, finishDate, pageable));
     }
 
     /**

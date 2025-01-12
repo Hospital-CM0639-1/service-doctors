@@ -14,7 +14,7 @@ import java.util.List;
 public interface IMedicalProcedureRepository extends JpaRepository<MedicalProcedure, Long>  {
 
     List<MedicalProcedure> findAllByStaff_IdAndStaff_RoleAndProcedureTimestampBetween(Long id, EStaffRole role, LocalDateTime startDate, LocalDateTime finishDate);
-    List<MedicalProcedure> findAllByEmergencyVisit_Patient_IdAndProcedureTimestampBetween(Long id, LocalDateTime startDate, LocalDateTime finishDate);
-
+    Page<MedicalProcedure> findAllByEmergencyVisit_Patient_IdAndProcedureTimestampBetween(Long id, LocalDateTime startDate, LocalDateTime finishDate, Pageable pageable);
+    Page<MedicalProcedure> findAllByEmergencyVisit_Patient_Id(Long id, Pageable pageable);
 
 }

@@ -51,12 +51,15 @@ public class PatientVitalService {
     /**
      * Get patient vitals of patient
      */
-    public List<DetailPatientVitalDto> getPatientVitalsOfPatient(Long patientId, LocalDateTime startDate, LocalDateTime finishDate) {
-        List<PatientVital> patientVitalList = patientVitalRepository.findAllByEmergencyVisit_Patient_IdAndRecordedAtBetween(
-                patientId, startDate, finishDate);
-        return patientVitalList.stream()
-                .map(this::convertToDetailedDto)
-                .collect(Collectors.toList());
+    public Page<DetailPatientVitalDto> getPatientVitalsOfPatient(Long patientId, LocalDateTime startDate, LocalDateTime finishDate, Pageable pageable) {
+        Page<PatientVital> patientVitalList = null;
+        if (startDate != null && finishDate != null) {
+            patientVitalList = patientVitalRepository.findAllByEmergencyVisit_Patient_IdAndRecordedAtBetween(
+                    patientId, startDate, finishDate, pageable);
+        } else {
+            patientVitalList = patientVitalRepository.findAllByEmergencyVisit_Patient_Id(patientId, pageable);
+        }
+        return patientVitalList.map(this::convertToDetailedDto);
     }
 
     /**

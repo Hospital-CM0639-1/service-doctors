@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   service-doctor:
+    platform: linux/x86_64
     ports:
       - 6060:6060
     image: service-doctor-image
@@ -12,8 +13,6 @@ services:
     container_name: service-doctor
     networks:
       - net_storage
-    depends_on:
-      - hospital-database
 
 networks:
   net_storage:

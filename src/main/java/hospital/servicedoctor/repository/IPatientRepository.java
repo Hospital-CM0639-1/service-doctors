@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface IPatientRepository extends JpaRepository<Patient, Long>  {
 
@@ -16,5 +18,9 @@ public interface IPatientRepository extends JpaRepository<Patient, Long>  {
             "FROM Patient p " +
             "LEFT JOIN p.emergencyVisits ev " +
             "WHERE p.id = :patientId")
-    PatientEmergencyInfoDto findPatientEmergencyInfo(@Param("patientId") Long patientId);
+    List<PatientEmergencyInfoDto> findPatientEmergencyInfo(@Param("patientId") Long patientId);
+
+    // retrieve emergency visit id by patient id
+    @Query("SELECT ev.id FROM Patient p LEFT JOIN p.emergencyVisits ev WHERE p.id = :patientId")
+    List<Long> findEmergencyVisitIdByPatientId(@Param("patientId") Long patientId);
 }
